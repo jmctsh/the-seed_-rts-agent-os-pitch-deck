@@ -18,12 +18,14 @@ import {
   Smartphone,
   MousePointer2,
   Tv,
+  Save,
   Eye,
   Target,
   PlayCircle,
   RefreshCw,
   XCircle,
-  AlertTriangle
+  AlertTriangle,
+  Briefcase
 } from 'lucide-react';
 
 import img01 from './assets/01.png';
@@ -45,11 +47,11 @@ export const slides: SlideData[] = [
     content: (
       <div className="flex flex-col items-center justify-center h-full py-6">
         <div className="flex flex-col items-center gap-4 mb-8">
-          <div className="bg-white rounded-2xl p-4 shadow-2xl border border-zinc-800">
+          <div className="p-4">
             <img
               src={img04}
               alt="The Seed Logo"
-              className="h-16 md:h-20 w-auto object-contain"
+              className="h-32 md:h-56 w-auto object-contain drop-shadow-2xl"
             />
           </div>
           <h1 className="text-2xl md:text-4xl font-tech font-bold text-white tracking-[0.2em] uppercase">
@@ -82,10 +84,6 @@ export const slides: SlideData[] = [
               <h2 className="text-sm font-semibold text-white mb-1">
                 The Seed Framework
               </h2>
-              <p className="text-[11px] text-zinc-500 leading-relaxed">
-                主仓库，提供通用的智能体 OS 能力：Observe / Plan / Action / Review
-                分层架构与标准接口。
-              </p>
               <p className="mt-2 text-[10px] text-zinc-600 truncate">
                 https://github.com/anantheparty/The-Seed
               </p>
@@ -113,9 +111,6 @@ export const slides: SlideData[] = [
               <h2 className="text-sm font-semibold text-white mb-1">
                 The Seed Sample for OpenRA
               </h2>
-              <p className="text-[11px] text-zinc-500 leading-relaxed">
-                基于 OpenRA 的智能体示例工程，展示 The Seed 如何接入经典 RTS 引擎。
-              </p>
               <p className="mt-2 text-[10px] text-zinc-600 truncate">
                 https://github.com/anantheparty/THE-Seed-OpenRA
               </p>
@@ -157,7 +152,7 @@ export const slides: SlideData[] = [
              </p>
           </div>
         </div>
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden aspect-video flex items-center justify-center relative">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden aspect-[1.41/1] flex items-center justify-center relative">
            <img src={img01} className="w-full h-full object-cover" alt="Market Potential" />
         </div>
       </div>
@@ -277,9 +272,9 @@ export const slides: SlideData[] = [
       <div className="flex flex-col items-center justify-center space-y-4 h-full">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
           {[
-            { icon: <Brain />, title: "对开发者", desc: "标准化的“大脑”接口，无需重复造轮子。" },
-            { icon: <Gamepad2 />, title: "完美对手", desc: "会用兵法、会偷袭、会佯攻的真实对手。" },
-            { icon: <Zap />, title: "最强辅助", desc: "玩家定战术，AI 搞微操（拉兵、生产）。" }
+            { icon: <Brain />, title: "对PVP玩家：提升上限", desc: "AI 搞微操，玩家腾出手多线操作。" },
+            { icon: <Gamepad2 />, title: "对PVE玩家：拉高下限", desc: "会用兵法、会偷袭、会佯攻的AI队友/对手。" },
+            { icon: <Zap />, title: "对开发者：节约时间", desc: "标准化的“大脑”接口，无需重复造轮子。" }
           ].map((item, i) => (
             <div key={i} className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 text-center">
               <div className="w-8 h-8 bg-zinc-800 text-yellow-500 rounded-full flex items-center justify-center mx-auto mb-2">
@@ -306,7 +301,7 @@ export const slides: SlideData[] = [
   {
     id: 6,
     title: "脑体分离：分层架构",
-    subtitle: "四大核心节点：分工明确，互为支撑",
+    subtitle: "五大核心节点：分工明确，互为支撑",
     section: SectionType.SOLUTION,
     speakerNotes: [
       "The Seed 是面向实时 RTS 的智能体 OS，而不是一次性工具调用框架。",
@@ -315,12 +310,13 @@ export const slides: SlideData[] = [
     ],
     content: (
       <div className="flex flex-col items-center justify-center h-full space-y-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-4xl px-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 w-full max-w-5xl px-4">
           {[
             { name: 'Observe', icon: <Eye size={20} />, color: 'text-green-400', bg: 'bg-green-400/10', border: 'border-green-400/30', desc: '全图态势感知与特征提取' },
             { name: 'Plan', icon: <Target size={20} />, color: 'text-blue-400', bg: 'bg-blue-400/10', border: 'border-blue-400/30', desc: '多步博弈推理与战略制定' },
             { name: 'Action', icon: <PlayCircle size={20} />, color: 'text-orange-400', bg: 'bg-orange-400/10', border: 'border-orange-400/30', desc: '毫秒级指令映射与精确执行' },
-            { name: 'Review', icon: <RefreshCw size={20} />, color: 'text-yellow-400', bg: 'bg-yellow-400/10', border: 'border-yellow-400/30', desc: '对局反思与代码逻辑自修正' }
+            { name: 'Review', icon: <RefreshCw size={20} />, color: 'text-yellow-400', bg: 'bg-yellow-400/10', border: 'border-yellow-400/30', desc: '对局反思与代码逻辑自修正' },
+            { name: 'Commit', icon: <Save size={20} />, color: 'text-purple-400', bg: 'bg-purple-400/10', border: 'border-purple-400/30', desc: '反思提交经验，实现动态学习' }
           ].map((node, i) => (
             <div key={i} className="flex flex-col items-center gap-4">
               <div className={`w-20 h-20 md:w-24 md:h-24 ${node.bg} ${node.border} border-2 rounded-3xl flex flex-col items-center justify-center shadow-xl`}>
@@ -340,7 +336,7 @@ export const slides: SlideData[] = [
            <h5 className="text-xs font-bold text-yellow-500 mb-2 uppercase font-tech tracking-wider">Real-time Agent OS + FSM</h5>
            <div className="text-[12px] md:text-sm text-zinc-200 leading-relaxed max-w-3xl">
              <p>
-               内环实时决策，外环按需调用 LLM，显著提升响应速度；Python 可控脚本配合 FSM，让大脑只在有限状态中流转；游戏只需暴露 Observe / Action / Event 接口，就能轻量挂载智能体。
+               内环基于本地算法自动微操 + 外环调用LLM实时决策；Python可控脚本配合FSM，让大脑只在有限状态中流转；游戏开发者只需要开发内环，并封装Observe和Action的操作列表，就能轻量挂载智能体。
              </p>
            </div>
         </div>
@@ -382,7 +378,7 @@ export const slides: SlideData[] = [
            <div className="text-center max-w-[240px]">
              <h5 className="text-sm font-bold text-yellow-500 mb-1">The Seed 标准化智能体</h5>
              <p className="text-[10px] text-zinc-300 leading-relaxed font-medium">
-               基于更先进的 FSM 框架重构，具备清晰的感知与执行边界。显著提升开发效率。
+               基于更先进的框架重构，具备清晰的感知与执行边界。显著提升开发效率。
              </p>
            </div>
         </div>
@@ -496,10 +492,20 @@ export const slides: SlideData[] = [
               <div className="p-3 bg-zinc-900 border border-zinc-800 rounded-xl relative overflow-hidden group hover:border-blue-500/30 transition-colors h-[84px] flex flex-col justify-center">
                 <div className="flex items-center gap-2 mb-1">
                   <Workflow className="text-blue-400" size={16} />
-                  <h5 className="text-xs font-bold text-white">开源社区共建</h5>
+                  <h5 className="text-xs font-bold text-white">开源共建与模式复用</h5>
                 </div>
                 <p className="text-[10px] text-zinc-500 leading-relaxed line-clamp-2">
-                  与 OpenRA 等成熟社区深度合作，强强联合，实现技术共享与生态扩容。
+                  与 OpenRA 等社区深度合作；该模式可无缝复制至其他 RTS 项目，成为行业标准基础设施。
+                </p>
+              </div>
+
+              <div className="p-3 bg-zinc-900 border border-zinc-800 rounded-xl relative overflow-hidden group hover:border-blue-500/30 transition-colors h-[84px] flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-1">
+                  <Briefcase className="text-blue-400" size={16} />
+                  <h5 className="text-xs font-bold text-white">ToB 技术指导与定制</h5>
+                </div>
+                <p className="text-[10px] text-zinc-500 leading-relaxed line-clamp-2">
+                  为游戏厂商提供内环开发与函数封装的技术指导，通过定制化开发与咨询服务盈利。
                 </p>
               </div>
 
@@ -510,16 +516,6 @@ export const slides: SlideData[] = [
                 </div>
                 <p className="text-[10px] text-zinc-500 leading-relaxed line-clamp-2">
                   基于庞大用户群举办职业联赛，吸引赞助与投资，打造电竞新标杆。
-                </p>
-              </div>
-
-              <div className="p-3 bg-zinc-900 border border-zinc-800 rounded-xl relative overflow-hidden group hover:border-blue-500/30 transition-colors h-[84px] flex flex-col justify-center">
-                <div className="flex items-center gap-2 mb-1">
-                  <RefreshCw className="text-blue-400" size={16} />
-                  <h5 className="text-xs font-bold text-white">模式泛化复用</h5>
-                </div>
-                <p className="text-[10px] text-zinc-500 leading-relaxed line-clamp-2">
-                  该模式可无缝复制至其他 RTS 开源社区及商业项目，成为行业标准基础设施。
                 </p>
               </div>
            </div>

@@ -6,11 +6,7 @@ import { slides } from './slides';
 import { 
   ChevronLeft, 
   ChevronRight, 
-  Play, 
-  Pause, 
-  RotateCcw, 
-  BookOpen, 
-  Clock 
+  BookOpen
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -42,25 +38,6 @@ const App: React.FC = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextSlide, prevSlide]);
-
-  // Timer logic
-  useEffect(() => {
-    let interval: any;
-    if (isTimerActive && timer > 0) {
-      interval = setInterval(() => {
-        setTimer((t) => t - 1);
-      }, 1000);
-    } else if (timer === 0) {
-      setIsTimerActive(false);
-    }
-    return () => clearInterval(interval);
-  }, [isTimerActive, timer]);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  };
 
   return (
     <div className="relative h-screen w-screen bg-[#050505] text-white flex overflow-hidden">
@@ -98,32 +75,15 @@ const App: React.FC = () => {
         </div>
 
         {/* Footer Navigation */}
-        <footer className="shrink-0 h-16 border-t border-zinc-800 flex items-center justify-between px-8 bg-zinc-900/80 backdrop-blur-md z-10">
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3 bg-zinc-800/50 px-3 py-1.5 rounded-full border border-zinc-700">
-              <Clock size={16} className={timer < 60 ? 'text-red-500 animate-pulse' : 'text-zinc-400'} />
-              <span className={`font-mono text-base ${timer < 60 ? 'text-red-500' : 'text-zinc-200'}`}>
-                {formatTime(timer)}
-              </span>
-              <button onClick={() => setIsTimerActive(!isTimerActive)} className="hover:text-yellow-400 transition-colors">
-                {isTimerActive ? <Pause size={16} /> : <Play size={16} />}
-              </button>
-              <button onClick={() => {setTimer(420); setIsTimerActive(false);}} className="hover:text-yellow-400 transition-colors">
-                <RotateCcw size={14} />
-              </button>
-            </div>
-            
-            <div className="hidden md:flex flex-col">
-              <div className="w-32 h-1 bg-zinc-800 rounded-full">
-                <div 
-                  className="h-full bg-yellow-500 rounded-full transition-all duration-300" 
-                  style={{ width: `${((currentSlideIndex + 1) / slides.length) * 100}%` }}
-                />
-              </div>
-            </div>
+        <footer className="shrink-0 h-16 border-t border-zinc-800 flex items-center px-8 bg-zinc-900/80 backdrop-blur-md z-10 gap-8">
+          <div className="flex-grow h-1 bg-zinc-800 rounded-full">
+            <div 
+              className="h-full bg-yellow-500 rounded-full transition-all duration-300" 
+              style={{ width: `${((currentSlideIndex + 1) / slides.length) * 100}%` }}
+            />
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 shrink-0">
             <button 
               onClick={() => setShowNotes(!showNotes)} 
               className={`p-2 rounded-lg border transition-all ${showNotes ? 'bg-yellow-500 text-black border-yellow-500' : 'bg-transparent text-zinc-400 border-zinc-700 hover:border-zinc-500'}`}
