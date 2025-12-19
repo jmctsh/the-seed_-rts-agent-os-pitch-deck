@@ -309,7 +309,9 @@ export const slides: SlideData[] = [
     subtitle: "四大核心节点：分工明确，互为支撑",
     section: SectionType.SOLUTION,
     speakerNotes: [
-      "我们的架构彻底分离了大脑和身体。Observe提取特征，Plan逻辑推理，Action执行指令，Review反思进化。"
+      "The Seed 是面向实时 RTS 的智能体 OS，而不是一次性工具调用框架。",
+      "内环负责毫秒级决策与执行，外环按需调用 LLM 做局势理解和策略规划。",
+      "通过 Python 脚本 + FSM 限定 OBSERVE / PLAN / ACTION / REVIEW 等状态，智能体行为可控、可调试，游戏只需暴露 Observe / Action / Event 接口接入。"
     ],
     content: (
       <div className="flex flex-col items-center justify-center h-full space-y-6">
@@ -334,12 +336,13 @@ export const slides: SlideData[] = [
         <div className="w-full max-w-4xl bg-zinc-900/50 p-5 rounded-2xl border border-zinc-800/80 text-left relative overflow-hidden">
            <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
               <Workflow size={100} />
+            </div>
+           <h5 className="text-xs font-bold text-yellow-500 mb-2 uppercase font-tech tracking-wider">Real-time Agent OS + FSM</h5>
+           <div className="text-[12px] md:text-sm text-zinc-200 leading-relaxed max-w-3xl">
+             <p>
+               内环实时决策，外环按需调用 LLM，显著提升响应速度；Python 可控脚本配合 FSM，让大脑只在有限状态中流转；游戏只需暴露 Observe / Action / Event 接口，就能轻量挂载智能体。
+             </p>
            </div>
-           <h5 className="text-xs font-bold text-yellow-500 mb-2 uppercase font-tech tracking-wider">The Standardized Agent Paradigm</h5>
-           <p className="text-[11px] text-zinc-400 leading-relaxed max-w-3xl">
-             传统的游戏AI开发逻辑耦合严重。The Seed 通过<strong>Observe(感知)-Plan(决策)-Action(执行)-Review(反思)</strong>的分层设计，
-             将复杂的智能行为拆解为标准化的可配置节点。Review节点更是通过 LLM 赋予了智能体从失败中学习、自动优化 FSM 代码的进化能力。
-           </p>
         </div>
       </div>
     )

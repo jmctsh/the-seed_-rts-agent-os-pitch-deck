@@ -49,6 +49,14 @@
     ```
     这将自动把 `dist` 文件夹的内容推送到仓库的 `gh-pages` 分支。
 
+> **更新已上线页面 (Update existing GitHub Pages)**  
+> 当你修改完内容后，只需在项目根目录再次执行：
+> ```bash
+> npm run build
+> npm run deploy
+> ```
+> GitHub Pages 会自动使用最新一次部署的 `gh-pages` 分支内容。
+
 ### 方法二：手动部署
 
 1.  运行构建命令：
