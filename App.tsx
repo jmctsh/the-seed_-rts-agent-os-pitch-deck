@@ -6,17 +6,46 @@ import { slides } from './slides';
 import { 
   ChevronLeft, 
   ChevronRight, 
-  BookOpen
+  BookOpen,
+  Maximize,
+  Minimize
 } from 'lucide-react';
 
 const App: React.FC = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
   const [showNotes, setShowNotes] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [timer, setTimer] = useState(420); // 7 minutes in seconds
   const [isTimerActive, setIsTimerActive] = useState(false);
 
   const currentSlide = slides[currentSlideIndex];
+
+  // Fullscreen toggle handler
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => {
+        setIsFullscreen(true);
+      }).catch(err => {
+        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().then(() => {
+          setIsFullscreen(false);
+        });
+      }
+    }
+  }, []);
+
+  // Listen for fullscreen change events (e.g. user presses Esc)
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
 
   // Navigation handlers
   const nextSlide = useCallback(() => {
@@ -86,6 +115,14 @@ const App: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4 shrink-0">
+            <button 
+              onClick={toggleFullscreen}
+              className="p-2 rounded-lg bg-transparent text-zinc-400 border border-zinc-700 hover:border-zinc-500 hover:text-zinc-200 transition-all"
+              title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+            >
+              {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+            </button>
+
             <button 
               onClick={() => setShowNotes(!showNotes)} 
               className={`p-2 rounded-lg border transition-all ${showNotes ? 'bg-yellow-500 text-black border-yellow-500' : 'bg-transparent text-zinc-400 border-zinc-700 hover:border-zinc-500'}`}

@@ -31,7 +31,7 @@ const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, direction, slideNu
         </div>
 
         {/* Content Section */}
-        <div className="flex-grow overflow-hidden flex flex-col justify-center">
+        <div className="flex-grow overflow-y-auto custom-scrollbar flex flex-col justify-center">
           {slide.content}
         </div>
       </div>
