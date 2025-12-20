@@ -71,6 +71,8 @@ const App: React.FC = () => {
             key={currentSlide.id} 
             slide={currentSlide} 
             direction={direction}
+            slideNumber={currentSlideIndex + 1}
+            totalSlides={slides.length}
           />
         </div>
 
