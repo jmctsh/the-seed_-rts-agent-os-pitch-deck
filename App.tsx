@@ -8,7 +8,8 @@ import {
   ChevronRight, 
   BookOpen,
   Maximize,
-  Minimize
+  Minimize,
+  Printer
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -16,6 +17,7 @@ const App: React.FC = () => {
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
   const [showNotes, setShowNotes] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isPrintMode, setIsPrintMode] = useState(false);
   const [timer, setTimer] = useState(420); // 7 minutes in seconds
   const [isTimerActive, setIsTimerActive] = useState(false);
 
@@ -68,6 +70,81 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextSlide, prevSlide]);
 
+  // Toggle Print Mode
+  const togglePrintMode = useCallback(() => {
+    setIsPrintMode(prev => !prev);
+    // Optional: automatically trigger print dialog after a short delay to allow rendering
+    if (!isPrintMode) {
+      setTimeout(() => {
+        window.print();
+      }, 500);
+    }
+  }, [isPrintMode]);
+
+  if (isPrintMode) {
+    return (
+      <div className="min-h-screen bg-black text-white">
+        {/* Print Controls - Hidden during actual print */}
+        <div className="fixed top-4 right-4 z-50 print:hidden flex gap-4">
+          <button 
+            onClick={() => window.print()}
+            className="px-4 py-2 bg-yellow-500 text-black rounded-lg font-bold shadow-lg hover:bg-yellow-400 transition-colors"
+          >
+            Confirm Print / Save as PDF
+          </button>
+          <button 
+            onClick={() => setIsPrintMode(false)}
+            className="px-4 py-2 bg-zinc-800 text-white rounded-lg border border-zinc-700 hover:bg-zinc-700 transition-colors"
+          >
+            Exit Print Mode
+          </button>
+        </div>
+
+        {/* All Slides Rendered Vertically */}
+        <div className="print-container">
+          {slides.map((slide, index) => (
+            <div key={slide.id} className="h-screen w-screen overflow-hidden page-break-after relative border-b border-zinc-900 print:border-none">
+              <SlideRenderer 
+                slide={slide} 
+                direction="forward"
+                slideNumber={index + 1}
+                totalSlides={slides.length}
+              />
+            </div>
+          ))}
+        </div>
+        
+        <style>{`
+          @media print {
+            @page {
+              size: landscape;
+              margin: 0;
+            }
+            body {
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+              background-color: #000 !important;
+            }
+            .print-container {
+              width: 100vw;
+              height: auto;
+            }
+            .page-break-after {
+              break-after: page;
+              page-break-after: always;
+              height: 100vh;
+              width: 100vw;
+            }
+            /* Hide scrollbars in print */
+            ::-webkit-scrollbar {
+              display: none;
+            }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
   return (
     <div className="relative h-screen w-screen bg-[#050505] text-white flex overflow-hidden">
       {/* Background Ambience */}
@@ -115,6 +192,14 @@ const App: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4 shrink-0">
+            <button 
+              onClick={togglePrintMode}
+              className="p-2 rounded-lg bg-transparent text-zinc-400 border border-zinc-700 hover:border-zinc-500 hover:text-zinc-200 transition-all"
+              title="Print / Export PDF"
+            >
+              <Printer size={18} />
+            </button>
+
             <button 
               onClick={toggleFullscreen}
               className="p-2 rounded-lg bg-transparent text-zinc-400 border border-zinc-700 hover:border-zinc-500 hover:text-zinc-200 transition-all"
